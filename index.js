@@ -23,8 +23,8 @@ function checker(){
 
 function sendReport(){
     const mailOptions = {
-        from: 'pandoraai@gmail.com', 
-        to: 'fr1sk@live.com', 
+        from: process.env.SENDER, 
+        to: process.env.RECEIVER, 
         subject: '🔐 DOOR IP ADDRESS CHANGED', 
         html: `<a href="http://${currentIP}">
                     <img src="https://i.imgur.com/ocIFIQA.png" width="200" height="200">

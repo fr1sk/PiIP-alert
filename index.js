@@ -1,9 +1,14 @@
 const mailer = require('nodemailer');
-let date = require('./date')
+const date = require('./date')
+const externalip = require('externalip');
 
 function checker(){
-    let time = new Date();
-    console.log(date.formatDate(time, "dddd h:mmtt d MMM yyyy")+" => ");
+    
+    
+    externalip(function (err, ip) {
+        let time = new Date();
+        console.log(date.formatDate(time, "dddd h:mmtt d MMM yyyy")+" => "+ip);
+      });
     setTimeout(checker, 1000);
 }
 

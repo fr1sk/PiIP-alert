@@ -1,6 +1,7 @@
 const date = require('./date')
 const externalip = require('externalip');
 const mailer = require('./mailer');
+require('dotenv').config()
 let currentIP;
 
 function checker(){

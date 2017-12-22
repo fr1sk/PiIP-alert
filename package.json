@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/fr1sk/PiIP-alert#readme",
   "dependencies": {
+    "dotenv": "^4.0.0",
     "externalip": "^1.0.2",
     "nodemailer": "^4.4.1"
   }

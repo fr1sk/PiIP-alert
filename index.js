@@ -1,8 +1,26 @@
+'use strict'
+
+require('dotenv').config()
+
 const date = require('./date')
 const externalip = require('externalip');
 const mailer = require('./mailer');
-require('dotenv').config()
+const mongoose = require('mongoose');
 let currentIP;
+
+mongoose.connect(process.env.MONGO_URI);
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    console.log('DB connection established!');
+});
+var Schema = mongoose.Schema;
+var ipSchema = new Schema({
+    "ip": String
+});
+var IP = mongoose.model('ip', ipSchema);
+
 
 function checker(){
 
@@ -12,7 +30,18 @@ function checker(){
         console.log(date.formatDate(time, "dddd h:mmtt d MMM yyyy")+" => "+ip);
         if(currentIP){
             if(ip && (currentIP !== ip)){
-                sendReport(currentIP);
+                currentIP = ip;
+                sendReport();
+                IP.update({_id: process.env.id}, {
+                    ip: currentIP, 
+                }, function(err, numberAffected, rawResponse) {
+                   if(err){
+                       console.log(err);
+                       return;
+                   }
+                   console.log(numberAffected);
+                   console.log(rawResponse);
+                })
             }
         } 
         if(ip){
@@ -38,6 +67,7 @@ function sendReport(){
       };
       mailer.sendMail(mailOptions);
 }
+
 
 
 function main(){

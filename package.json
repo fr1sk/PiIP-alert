@@ -19,6 +19,7 @@
   "dependencies": {
     "dotenv": "^4.0.0",
     "externalip": "^1.0.2",
+    "mongoose": "^5.0.0-rc0",
     "nodemailer": "^4.4.1"
   }
 }
